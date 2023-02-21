@@ -1,9 +1,11 @@
 # Animator
-un outil frustre d'animation de megapixels sur grille
+Un outil frustre d'animation de megapixels sur grille.  
+Il a été écrit pour un atelier de Savoir-Faire, avec cette idée un peu naïve de convaincre les étudiants de produire des animation 'abstraites' (non figuratives) afin d'expérimenter le rythme, les protocoles et les 'logiques' narratives.  
+Pour les étudiants de DN2, **DNMADe design graphique, Rennes** (langages visuels).
 
 Le tout est composé de deux outils :
-- un premier en HTML qui permet de créer les animations sur une grille définissable.
-- un second qui produit les séquences en bitmap à partir d'un fichier d'animation.
+- un premier en HTML qui permet de créer les animations sur une grille variable.
+- un second qui produit les séquences bitmap à partir d'un fichier d'animation.
 
 L'outil a été initialement conçu pour produire des animations sur écran 16:9 (fullHD ou UHD) en portrait (affiche numérique).
 Animator fonctionne en ligne (ou sur un serveur local) pour la partie web (la gestion des fichiers se fait en js avec l'objet Fetch()).
@@ -51,10 +53,15 @@ Il existe quelques raccourcis claviers :
 - `barre d'espace` : lecture / stop
 - `Escape` : arrêt de la lecture (réapparition du lecteur)
 
+_Notes:_  
+Le Format de fichier exporté est un objet JSON qui contient, taille de la grille, vitesse de l'animation, et la liste des 'pixels' allumés pour chaque image. (_merci à Gaïd pour l'idée du numérotage des cases_)
+
 ## Animator_Producer (Processing®)
-est le pendant d' `animator`. Il permet de produire les images bitmap correspondant à un fichier d'animation généré avec `animator`.    
+est le pendant d' `Animator`. Il permet de produire les images bitmap correspondant à un fichier d'animation généré avec `animator`.    
 Au lancement du script, une boite de dialogue s'ouvre pour choisir le fichier d'animation, puis les images sont produites. Le script s'arrête (quitte) à la fin du processus.  
 La séquence d'images est créée dans un dossier au nom du fichier d'animation, dans le dossier du fichier Processing (`.pde`). Les images sont numérotées sur 3 chiffres `img-001.png`.
 Par défaut les images produites sont en fullHD  en portrait, il suffit de modifier les paramètres `size` dans le script. Le script a été écrit sur un Macbook Pro avec écran retina, Processing™ propose `screenDensity` est paramètré à `2`, le `size` en `540 x 960`.   
 
 L'enregistrement d'images sous P5js® nécessite la validation de l'utilisateur. Pour éviter ce désagrément, il m'a semblé plus judicieux d'utiliser Processing® qui n'a pas cette contrainte (due aux "bacs à sable" (_sandbox_) des navigateurs)
+
+PS : Le code est brouillon, mais l'app est fonctionnelle en état. Il reste sans doute encore des bugs. Pensez à le signaler si vous utilisez.
