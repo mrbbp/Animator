@@ -33,7 +33,9 @@ Animator fonctionne en ligne (ou sur un serveur local) pour la partie web (la ge
 - réglage de la vitesse de l'animation
 
 ### Mode Lecteur
-Pour passer en mode lecteur, il suffit d'ajouter `#player` à l'url. L'interface se simplifie.
+Pour passer en mode lecteur, il suffit d'ajouter `#player` à l'url.  
+La grille disparaît et l'interface se simplifie.  
+
 ![mode éditeur](./img/outil_player_v7.png)
 
 #### Dans la partie inférieure : 
@@ -63,6 +65,6 @@ Au lancement du script, une boite de dialogue s'ouvre pour choisir le fichier d'
 La séquence d'images est créée dans un dossier au nom du fichier d'animation, dans le dossier du fichier Processing (`.pde`). Les images sont numérotées sur 3 chiffres `img-001.png`.  
 Par défaut les images produites sont en fullHD  en portrait, il suffit de modifier les paramètres `size` dans le script. Le script a été écrit sur un Macbook Pro avec écran retina, Processing™ propose un paramètre `screenDensity`. il est réglé à `2`, la dimension de l'image en `540 x 960`, soit une image en HD.   
 
-L'enregistrement d'images sous P5js® nécessite la validation de l'utilisateur. Pour éviter ce désagrément, il m'a semblé plus judicieux d'utiliser Processing® qui n'a pas cette contrainte (due aux "bacs à sable" (_sandbox_) des navigateurs)
+_Notes_ : L'enregistrement d'images sous P5js® nécessite la validation de l'utilisateur. Pour éviter ce désagrément, il m'a semblé plus judicieux d'utiliser Processing® qui n'a pas cette contrainte (due aux "bacs à sable" —_sandbox_— des navigateurs)
 
 PS : Le code est brouillon, mais l'app est fonctionnelle en état. Il reste sans doute encore des bugs. Pensez à le signaler si vous utilisez.
