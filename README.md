@@ -60,8 +60,8 @@ Le Format de fichier exporté est un objet JSON qui contient, taille de la grill
 ## Animator_Producer (Processing®)
 est le pendant d' `Animator`. Il permet de produire les images bitmap correspondant à un fichier d'animation généré avec `animator`.    
 Au lancement du script, une boite de dialogue s'ouvre pour choisir le fichier d'animation, puis les images sont produites. Le script s'arrête (quitte) à la fin du processus.  
-La séquence d'images est créée dans un dossier au nom du fichier d'animation, dans le dossier du fichier Processing (`.pde`). Les images sont numérotées sur 3 chiffres `img-001.png`.
-Par défaut les images produites sont en fullHD  en portrait, il suffit de modifier les paramètres `size` dans le script. Le script a été écrit sur un Macbook Pro avec écran retina, Processing™ propose `screenDensity` est paramètré à `2`, le `size` en `540 x 960`.   
+La séquence d'images est créée dans un dossier au nom du fichier d'animation, dans le dossier du fichier Processing (`.pde`). Les images sont numérotées sur 3 chiffres `img-001.png`.  
+Par défaut les images produites sont en fullHD  en portrait, il suffit de modifier les paramètres `size` dans le script. Le script a été écrit sur un Macbook Pro avec écran retina, Processing™ propose un paramètre `screenDensity`. il est réglé à `2`, la dimension de l'image en `540 x 960`, soit une image en HD.   
 
 L'enregistrement d'images sous P5js® nécessite la validation de l'utilisateur. Pour éviter ce désagrément, il m'a semblé plus judicieux d'utiliser Processing® qui n'a pas cette contrainte (due aux "bacs à sable" (_sandbox_) des navigateurs)
 
