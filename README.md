@@ -1,7 +1,8 @@
 # Animator
-Un outil frustre d'animation de megapixels sur grille.  
-Il a été écrit pour un atelier de Savoir-Faire, avec cette idée un peu naïve de convaincre les étudiants de produire des animation 'abstraites' (non figuratives) afin d'expérimenter le rythme, les protocoles et les 'logiques' narratives.  
-Pour les étudiants de DN2, **DNMADe design graphique, Rennes** (langages visuels).
+Est un outil frustre d'animation de megapixels sur grille.  
+
+Il a été écrit pour un atelier de Savoir-Faire, avec cette idée un peu naïve de convaincre les étudiants de produire des animations non figuratives afin d'expérimenter le rythme, les protocoles et les 'logiques' narratives intrinsèques.  
+Outil imaginé et codé pour les étudiants de DN2, **DNMADe design graphique, Rennes** (langages visuels).
 
 Le tout est composé de deux outils :
 - un premier en HTML qui permet de créer les animations sur une grille variable.
