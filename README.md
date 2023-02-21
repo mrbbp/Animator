@@ -56,7 +56,7 @@ Il existe quelques raccourcis claviers :
 - `barre d'espace` : lecture / stop
 - `Escape` : arrêt de la lecture (réapparition du lecteur)
 
-_Notes:_  
+_Notes_ :  
 Le Format de fichier exporté est un objet JSON qui contient, taille de la grille, vitesse de l'animation, et la liste des 'pixels' allumés pour chaque image. (_merci à Gaïd pour l'idée du numérotage des cases_)
 
 ## Animator_Producer (Processing®)
@@ -65,6 +65,7 @@ Au lancement du script, une boite de dialogue s'ouvre pour choisir le fichier d'
 La séquence d'images est créée dans un dossier au nom du fichier d'animation, dans le dossier du fichier Processing (`.pde`). Les images sont numérotées sur 3 chiffres `img-001.png`.  
 Par défaut les images produites sont en fullHD  en portrait, il suffit de modifier les paramètres `size` dans le script. Le script a été écrit sur un Macbook Pro avec écran retina, Processing™ propose un paramètre `screenDensity`. il est réglé à `2`, la dimension de l'image en `540 x 960`, soit une image en HD.   
 
-_Notes_ : L'enregistrement d'images sous P5js® nécessite la validation de l'utilisateur. Pour éviter ce désagrément, il m'a semblé plus judicieux d'utiliser Processing® qui n'a pas cette contrainte (due aux "bacs à sable" —_sandbox_— des navigateurs)
+_Notes_ :  
+L'enregistrement d'images sous P5js® nécessite la validation de l'utilisateur. Pour éviter ce désagrément, il m'a semblé plus judicieux d'utiliser Processing® qui n'a pas cette contrainte (due aux "bacs à sable" —_sandbox_— des navigateurs)
 
 PS : Le code est brouillon, mais l'app est fonctionnelle en état. Il reste sans doute encore des bugs. Pensez à le signaler si vous utilisez.
