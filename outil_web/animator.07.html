@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <style media="screen">
+      @font-face {
+        font-family: SourceSansVariable;
+        font-weight: 100 800;
+        src: url(_fonts/SourceSans3VF-Roman.ttf.woff2) format("woff2");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --forme: #999;
+        --fond: #333;
+        --hl: yellow;
+        --pixel:white;
+        --gap: 1rem;
+      }
+      html {
+        font-size: 100%; /* 1rem = 1em = 16px */
+      }
+      body {
+        line-height: 120%;
+        /*display: flex;
+        justify-content: center;
+        align-items: center;*/
+        /* deco */
+        background-color: #000;
+        font-family: SourceSansVariable;
+        font-weight: 100;
+        width: calc(calc(100vh / 16) * 9);
+        margin-left: calc(50vw - calc(calc(100vh / 16) * 4.5));
+      }
+      main {
+        display: grid;
+        grid-gap: var(--gap);
+        /* grid-template-columns: repeat(3, minmax(0, 1fr)); */
+        background-color: #222;
+        /* border-radius: 1rem;
+        overflow: hidden; */
+      }
+      article {
+        height: 25vh;
+        background-color: var(--fond);
+        /* border-radius: 50%; */
+      }
+      article:hover {
+        cursor: pointer;
+      }
+      .allume {
+        background-color: var(--pixel);
+      }
+      #actions {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        /* width: calc(80vw - 1rem); */
+        padding: 0 .5rem;
+        height: 3rem;
+        position: fixed;
+        bottom: 1rem;
+        width: 360px;
+        left: calc(calc(50vw - 180px) - .5rem);
+        border-radius: 1rem;
+        /* border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem; */
+        /* border: 1px solid var(--forme); */
+        background-color: #222;
+        font-size: .8rem;
+        box-shadow: 0px 0px 8px 0px rgba(0,0,0,.33);
+        transition: all 600ms ease-in-out;
+      }
+
+      #actions p, #speed p {
+        background-color: #888;
+        color: var(--hl);
+        border-radius: 8px;
+        font-weight: 600;
+        padding: 0px 8px;
+        line-height: 2rem;
+        font-size: 2rem;
+        font-weight: 400;
+        width: 3ch;
+        text-align: right;
+      }
+      #actions label {
+        color: var(--forme);
+      }
+      #speed {
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        left: calc(calc(calc( 100vw - calc(calc(100vh / 16) * 9)) / 4) - 2rem);
+        top: 0;
+        /* calc(50vh - 3vw); */
+        width: 2rem;
+        height: 25vh;
+        background-color: #222;
+        border-radius: 0 0 1rem 1rem;
+        padding: 1rem;
+        justify-content: flex-end;
+        align-items: center;
+        box-shadow: 0px 0px 8px 0px rgba(0,0,0,.33);
+      }
+      #speed datalist {
+        /* display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        /* writing-mode: vertical-lr; */
+        width: 200px;
+      }
+      #speed input {
+        appearance: slider-vertical;
+        /* width: 50vh; */
+        /* transform: rotateZ(-90deg); */
+      }
+      #speed p {
+        /* transform: rotateZ(90deg); */
+        /* margin-right: 1rem; */
+        /* height: 2rem; */
+        width: 2ch;
+        font-size: 1.5rem;
+        margin-top: 1rem;
+      }
+      #size {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 .5rem;
+        /* width: calc(80vw - 1rem); */
+        width: 450px;
+        left: calc(50vw - 225px);
+        /* height: 5vh; */
+        position: fixed;
+        top: 0rem;
+        /* left: 10vw; */
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        line-height: 3rem;
+        color: var(--forme);
+        /* border: 1px solid var(--forme); */
+        background-color: #222;
+        box-shadow: 0px 0px 8px 0px rgba(0,0,0,.33);
+      }
+      #size div {
+        width: calc(100% - 4rem);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      #size input {
+      }
+      #size label {
+        vertical-align: super;
+        font-weight: 700;
+        font-size: 1.5rem
+      }
+      .hl {
+        /* background-color: var(--hl) !important; */
+      }
+      /* pictos interface */
+      #close {
+        background-color: #aaa;
+        mask: url(_medias/x-circle.svg) center no-repeat;
+        -webkit-mask: url(_medias/x-circle.svg) center no-repeat;
+        width: 1.5rem;
+        height: 1.5rem;
+        text-indent: -300vw;
+      }
+      #close:hover, #upload:hover,#uploadPlayer:hover,#download:hover,#previous:hover,#next:hover,#erase:hover,#add:hover {
+        background-color: var(--hl);
+      }
+      #close,#upload,#uploadPlayer,#download,#previous,#next,#erase,#add,#play {
+        transition: background-color 300ms ease-in-out;
+      }
+      #play:hover {
+        background-color: white;
+      }
+      #download {
+        background-color: #aaa;
+        mask: url(_medias/save.svg) center no-repeat;
+        -webkit-mask: url(_medias/save.svg) center no-repeat;
+        width: 1.5rem;
+        height: 1.5rem;
+        text-indent: -300vw;
+      }
+      #upload, #uploadPlayer {
+        background-color: #aaa;
+        mask: url(_medias/download.svg) center no-repeat;
+        -webkit-mask: url(_medias/download.svg) center no-repeat;
+        width: 1.5rem;
+        height: 1.5rem;
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      #upload input, #uploadPlayer input {
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        position: absolute;
+        opacity: 0;
+      }
+      #previous {
+        background-color: #eee;
+        mask: url(_medias/skip-back.svg) center no-repeat;
+        -webkit-mask: url(_medias/skip-back.svg) center no-repeat;
+        width: 1.5rem;
+        height: 1.5rem;
+        text-indent: -300vw;
+      }
+      #next {
+        background-color: #eee;
+        mask: url(_medias/skip-forward.svg) center no-repeat;
+        -webkit-mask: url(_medias/skip-forward.svg) center no-repeat;
+        width: 1.5rem;
+        height: 1.5rem;
+        text-indent: -300vw;
+      }
+      #play {
+        background-color: var(--hl);
+        mask: url(_medias/play.svg) center no-repeat;
+        -webkit-mask: url(_medias/play.svg) center no-repeat;
+        width: 1.5rem;
+        height: 1.5rem;
+        text-indent: -300vw;
+      }
+      #erase {
+        background-color: #aaa;
+        mask: url(_medias/trash.svg) center no-repeat;
+        -webkit-mask: url(_medias/trash.svg) center no-repeat;
+        width: 1.5rem;
+        height: 1.5rem;
+        text-indent: -300vw;
+      }
+      #add {
+        background-color: #aaa;
+        mask: url(_medias/plus-square.svg) center no-repeat;
+        -webkit-mask: url(_medias/plus-square.svg) center no-repeat;
+        width: 1.5rem;
+        height: 1.5rem;
+        text-indent: -300vw;
+      }
+      input#clearNewFrame {
+        /* width: 2rem; */
+      }
+      svg {
+          fill: currentColor;
+      }
+      footer {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        bottom: 1.5rem;
+        left: 1.5rem;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 1rem;
+        background-color: var(--forme);
+      }
+    </style>
+  </head>
+  <body>
+    <main></main>
+    <aside id="speed">
+      <input
+        onchange="majVitesse(this)"
+        type="range"
+        id="vitesse"
+        name="vitesse"
+        value="8"
+        min="8"
+        max="30"
+        list="markers"
+        orient="vertical"
+      >
+      <datalist id="markers">
+        <option value="8" label="8"></option>
+        <option value="12" label="12"></option>
+        <option value="15" label="15"></option>
+        <option value="25" label="25"></option>
+        <option value="30" label="30"></option>
+      </datalist>
+      <p id="vitesseTxt">8</p>
+    </aside>
+    <aside id="size">
+      <span title="charger une anim." id="upload">
+        <input type="file" onchange="importe(this)">
+      </span>
+      <!-- <a href="#" onclick="importe(this)">Import anim</a> -->
+      <div>
+      <label id="largeurTxt" for="largeur">largeur:</label>
+      <input
+        onchange="majDim(this)"
+        type="range"
+        id="largeur"
+        name="largeur"
+        value="3"
+        min="1"
+        max="12"
+      >
+      <label id="hauteurTxt" for="hauteur">hauteur:</label>
+      <input
+        onchange="majDim(this)"
+        type="range"
+        id="hauteur"
+        name="hauteur"
+        value="4"
+        min="1"
+        max="16"
+      >
+      <a id="close" href="#" title="fermer cet onglet" onclick="ferme(this)"></a>
+      </div>
+    </aside>
+    <aside id="actions">
+      <a id="download" title="sauv. l'anim." onclick="final(this)" href="#">final</a>
+      <span title="charger une anim." id="uploadPlayer">
+        <input type="file" onchange="importe(this)">
+      </span>
+      <p>0</p>
+      <a id="previous" onclick="previous()" title="img préc." href="javascript:void(0)">previous</a>
+      <a id="play" class="hl" onclick="record()" href="javascript:void(0)" title="lire / pause">play/stop</a>
+      <a id="next" onclick="next()" href="javascript:void(0)" title="img suiv.">next</a>
+      <a id="add" onclick="addFrame()" href="#" title="insérer img">addFrame</a>
+      <label id="clearNewFrameLabel">clear next</label>
+      <input id="clearNewFrame" checked type="checkbox" />
+      <a id="erase" onclick="erase()" href="#" title="supp. img">erase</a>
+    </aside>
+    <section></section>
+    <footer></footer>
+  </body>
+  <script>
+
+    /*
+      icon from https://feathericons.com/
+
+      v02:
+        changement format de l'anim
+          animation = {
+            dim:[x,y],
+            datas:[images]
+          }
+        ajout dimensionnement de la grille
+      v03:
+        compteur défile quand anime joue
+        le résultat de l'anim s'affiche dans un block qui apparaît dans la page
+        ajout d'un bouton pour conserver l'image précédente à l'affichage
+        fermeture de la barre de réglage de la grille
+      v04:
+        changement format de l'anim -> JSON valide
+        enregistrement d'un fichier d'anim en local (source: https://code.tutsplus.com/tutorials/how-to-save-a-file-with-javascript--cms-41105)
+        import d'un fichier d'anim (source: https://javascript.info/file)
+        le nom du fichier contient la date et l'heure (formatage de l'heure)
+        correction limite previous() <= 0
+        ajout de pictos pour les outils
+        corrections de bug
+      v05:
+        ajout "supprimer l'image en cours"
+        ajout "insérer une image"
+        transition sur les hover
+        changement icône chargement
+      v06:
+        ajout d'une vitesse dans le fichier d'animation
+        arrête la lecture quand chargement d'un fichier
+        affichage d'une erreur en cas de pb de chargement de fichier + si pb de taille de grille vs valeur de case
+        reconfigure l'interface si ajout "#player" dans l'url
+        correction du # dans les href remplacé par (javascript:void(0))
+      v07:
+        ajout d'un réglage de vitesse
+        correction de la suppression d'une image (effectif maintenant)
+    */
+    // FIXED: ajouter "supprimer l'image en cours" ou "enlever l'image"
+
+    const version = parseInt(window.location.pathname.split(".")[1]);
+    document.querySelector("footer").innerHTML = `v.${version}`;
+    const switchPixel = (e) => {
+      e.target.classList.toggle("allume");
+    };
+    // l'animation
+    let animation = {"speed":8,"dim":[],"datas":[]};
+    // cadence de l'animation
+    let fps = animation.speed;
+    let enLecture = false;
+
+    // [[1], [1, 2], [1, 2, 3], []];
+
+    const main = document.querySelector("main");
+    const compteur = document.querySelector("#actions p");
+    const section = document.querySelector("section");
+    const clearNF = document.querySelector("#clearNewFrame");
+    const size = document.querySelector('#size');
+    const actions = document.querySelector('#actions');
+    const speed = document.querySelector('#speed');
+    const speedP = document.querySelector("#speed p");
+    const speedR = document.querySelector("#speed input");
+    speedR.value = fps;
+
+    let mode = "";
+    console.log(window.location.search)
+    if (/player/gm.test(window.location.hash)) {
+      console.log("c'est le player");
+      mode = "player";
+      size.style.display = "none";
+      actions.style.width = "220px";
+      actions.style.left= "calc(50vw - 110px)";
+      document.querySelector('#download').style.display = "none";
+      document.querySelector('#add').style.display = "none";
+      document.querySelector('#clearNewFrame').style.display = "none";
+      document.querySelector('#clearNewFrameLabel').style.display = "none";
+      document.querySelector('#erase').style.display = "none";
+      document.documentElement.style.setProperty('--gap', 0);
+      document.documentElement.style.setProperty('--fond', "#000");
+      document.body.style.backgroundColor = "#333";
+    } else {
+      console.log("c'est l'editeur");
+      mode = "editeur";
+      document.querySelector('#uploadPlayer').style.display = "none";
+    }
+
+    // var nbr de lignes / colonnes
+    let rows = document.querySelector("#hauteur").value;
+    document.querySelector("#hauteurTxt").innerHTML = rows;
+    //4;
+    let cols = document.querySelector("#largeur").value;
+    document.querySelector("#largeurTxt").innerHTML = cols;
+    // dessineGrille
+    let pixels = [];
+    dessineGrille();
+
+
+    let nImage = 0;
+    let nImageLecteur = 0;
+
+    function record() {
+      if (!enLecture) {
+        console.log("lecture");
+        animation.datas[nImage] = [];
+        // enregistre l'état
+        pixels.forEach((pixel, i) => {
+          if (pixel.classList.contains("allume")) {
+            animation.datas[nImage].push(i + 1);
+            console.log(animation.datas[nImage]);
+          }
+        });
+        enLecture = true;
+        requestAnimationFrame(lire);
+      } else {
+        enLecture = false;
+        nImageLecteur = 0;
+        // met à jour le compteur
+        compteur.innerHTML = nImage;
+        // éteint les pixels
+        pixels.forEach((pixel, i) => {
+          pixel.classList.remove("allume");
+        });
+        // allume les pixels (image de l'animation)
+        animation.datas[nImage].forEach((pixel, i) => {
+          pixels[pixel - 1].classList.add("allume");
+        });
+      }
+    }
+
+    function next() {
+      animation.datas[nImage] = [];
+      // enregistre l'état
+      pixels.forEach((pixel, i) => {
+        if (pixel.classList.contains("allume")) {
+          animation.datas[nImage].push(i + 1);
+          console.log(animation.datas[nImage]);
+        }
+      });
+      // passe à l'image suivante
+      nImage++;
+      // met à jour le compteur
+      compteur.innerHTML = nImage;
+      // éteint les pixels
+      if (clearNF.checked) {
+        pixels.forEach((pixel, i) => {
+          pixel.classList.remove("allume");
+        });
+      }
+      // si l'image existe
+      if (animation.datas[nImage] != undefined) {
+        // efface la précédente image
+        pixels.forEach((pixel, i) => {
+          pixel.classList.remove("allume");
+        });
+        // allume les pixels (image de l'animation)
+        animation.datas[nImage].forEach((pixel, i) => {
+          pixels[pixel - 1].classList.add("allume");
+        });
+      } else {
+        // si l'image n'existe pas
+        animation.datas[nImage] = [];
+      }
+    }
+
+    function previous() {
+      if (nImage > 0) {
+        animation.datas[nImage] = [];
+        // enregistre l'état actuel
+        pixels.forEach((pixel, i) => {
+          if (pixel.classList.contains("allume")) {
+            animation.datas[nImage].push(i + 1);
+            console.log(animation.datas[nImage]);
+          }
+        });
+        nImage--;
+        // met à jour le compteur
+        compteur.innerHTML = nImage;
+        // si l'image existe
+        if (animation.datas[nImage] != undefined) {
+          // éteint les pixels
+          pixels.forEach((pixel, i) => {
+            pixel.classList.remove("allume");
+          });
+          // allume les pixels (image de l'animation)
+          animation.datas[nImage].forEach((pixel, i) => {
+            pixels[pixel - 1].classList.add("allume");
+          });
+        } else {
+          console.log("fin de l'anim");
+        }
+      }
+    }
+
+    function final(e) {
+      console.log(e);
+      const dt = new Date();
+      //console.log('animation@'+dt.YYYYMMDDHHMMSS());
+      let name = 'animation@'+dt.YYYYMMDDHHMMSS();
+      let text = JSON.stringify(animation);
+
+      e.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      e.setAttribute('download', `${name.toLowerCase()}.txt`);
+      // section.style.display = "block";
+      // const animFormat = "{dim:[" +
+      // cols +
+      // "," +
+      // rows +
+      // "],datas:[[" +
+      // animation.join("],[") +
+      // "]]}";
+      // window.localStorage.animation = animFormat;
+      // section.innerHTML =
+      //   `<em>Copiez-collez les lignes suivantes :</em><br>${animFormat}`;
+    }
+    window.requestAnimationFrame =
+      window.requestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.msRequestAnimationFrame;
+    // inits animation
+    let oldDuree = null;
+    nImageLecteur = 0;
+    first = true;
+
+    function lire(timestamp) {
+      // actions.style.opacity = .3;
+      console.log("lecture");
+      const msPassees = timestamp - oldDuree;
+      if (enLecture) {
+        if (first) {
+          nImageLecteur = nImage;
+          first= false;
+          if (mode=='player') {
+            actions.style.opacity = 0;
+          }
+          // if (mode == "player") {
+          //   actions.style.left = "calc(calc(100vw - 110px) - 2rem)";
+          // } else {
+          //   actions.style.left = "calc(calc(100vw - 180px) - 2rem)";
+          // }
+          // actions.style.right = "2rem";
+        }
+        requestAnimationFrame(lire);
+        if (msPassees > 1000 / fps) {
+          // affiche le numero d'image
+          compteur.innerHTML = nImageLecteur % animation.datas.length
+          // éteint les pixels
+          pixels.forEach((pixel, i) => {
+            pixel.classList.remove("allume");
+          });
+          // allume les pixels (image de l'animation)
+          animation.datas[nImageLecteur].forEach((pixel) => {
+
+            pixels[pixel - 1].classList.add("allume");
+            //console.log(pixel-1,pixels[pixel - 1]);
+          });
+          nImageLecteur++;
+          nImageLecteur = nImageLecteur % animation.datas.length
+          oldDuree = timestamp;
+        }
+      } else {
+        // if (mode=='player') {
+          actions.style.opacity = 1;
+        // }
+        first= true;
+        console.log("else");
+        enLecture = false;
+        nImageLecteur = animation.datas.length-1;
+        nImage = animation.datas.length-1;
+        // affiche le numero d'image
+        compteur.innerHTML = nImageLecteur;
+        // éteint les pixels
+        pixels.forEach((pixel, i) => {
+          pixel.classList.remove("allume");
+        });
+        // allume les pixels (image de l'animation)
+        animation.datas[nImageLecteur].forEach((pixel, i) => {
+          pixels[pixel - 1].classList.add("allume");
+        });
+      }
+    }
+
+    function erase() {
+      // efface l'image de l'animation
+      animation.datas.splice(nImage, 1);
+      // si l'image existe
+      if (animation.datas[nImage] != undefined) {
+        console.log("existe");
+      } else {
+        // si l'image n'existe pas (efface la dernière image)
+        nImage--;
+        compteur.innerHTML = nImage;
+      }
+      // mets à jour l'affichage
+      // efface la précédente- image
+      pixels.forEach((pixel, i) => {
+        pixel.classList.remove("allume");
+      });
+      // allume les pixels (image de l'animation)
+      animation.datas[nImage].forEach((pixel, i) => {
+        pixels[pixel - 1].classList.add("allume");
+      });
+    }
+
+    function addFrame() {
+      console.log(animation.datas)
+      animation.datas.splice(nImage+1, 0, []);
+      nImage++;
+      // met à jour le compteur
+      compteur.innerHTML = nImage % animation.datas.length;
+      console.log(animation.datas)
+      // éteint les pixels
+      if (clearNF.checked) {
+        pixels.forEach((pixel, nImage) => {
+          pixel.classList.remove("allume");
+        });
+      }
+    }
+
+    function ferme(e) {
+      console.log("click");
+      size.style.display = "none";
+    }
+
+    const hauteur = document.querySelector("#hauteur");
+    const largeur = document.querySelector("#largeur");
+
+    function majDim(e) {
+      console.log(e.id);
+      document.querySelector(`#${e.id}Txt`).innerHTML = e.value;
+      rows = hauteur.value;
+      cols = largeur.value;
+      animation.dim[1] = parseInt(hauteur.value);
+      animation.dim[0] = parseInt(largeur.value);
+      dessineGrille();
+    }
+
+    function majVitesse(e) {
+      // console.log(e.id);
+      document.querySelector(`#${e.id}Txt`).innerHTML = e.value;
+      fps = e.value;
+      animation.speed = e.value;
+    }
+
+    function dessineGrille() {
+      console.log("dessine");
+      // efface table pixels
+      pixels = [];
+      // dimensionne la grille css
+      main.style.gridTemplateColumns = `repeat(${cols}, minmax(0,1fr))`;
+      main.innerHTML = "";
+      // création  de la grille
+      for (let i = 0; i < rows * cols; i++) {
+        const pixel = document.createElement("article");
+        pixel.id = `c_${i}`;
+        //console.log("gridgap:",parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap')));
+        // dépend de la largeur du grid-gap (mode player/editeur)
+        pixel.style.height = `calc(${100 / rows}vh - ${((rows-1)/rows)*parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap'))}rem)`;
+        pixels.push(pixel);
+        pixel.addEventListener("click", switchPixel);
+        main.appendChild(pixel);
+      }
+      // rempli les dimensions l'animation
+      animation.dim[0] = parseInt(cols);
+      animation.dim[1] = parseInt(rows);
+      document.querySelector(`#largeurTxt`).innerHTML = parseInt(cols);
+      document.querySelector(`#hauteurTxt`).innerHTML = parseInt(rows);
+      document.querySelector("#largeur").value = parseInt(cols);
+      document.querySelector("#hauteur").value = parseInt(rows);
+    }
+
+    function importe(input) {
+      enLecture = false;
+      //console.log("importe");
+      let file = input.files[0];
+      // input.blur();
+      let reader = new FileReader();
+
+      reader.readAsText(file);
+
+      reader.onload = function() {
+        console.log(reader.result);
+        try {
+          const obj = JSON.parse(reader.result);
+          animation = {};
+          animation.dim = obj.dim;
+          animation.datas = obj.datas;
+          // ajout de la vitesse si dispo dans le fichier (version du fichier) et MàJ le range et la valeur
+          console.log("vitesse:",obj.speed);
+          if (obj.speed != undefined) {
+            animation.speed = obj.speed;
+            fps = obj.speed;
+            speedR.value = obj.speed;
+            speedP.innerHTML = obj.speed;
+          }
+          // compare grille aux valeurs de datas
+          let valMax = 0;
+          obj.datas.forEach((item, i) => {
+            item.forEach((num, i) => {
+              if (valMax< num) {
+                valMax = num;
+              }
+            });
+          });
+          console.log("valMax=",valMax);
+          if (valMax> obj.dim[1]*obj.dim[0]) {
+            animation = {"speed":8,"dim":[],"datas":[]};
+            throw new Error(`la taille de la grille ${obj.dim[0]} par ${obj.dim[1]} dans le fichier est inférieur aux valeurs de l'animation`);
+
+          }
+          rows = obj.dim[1];
+          cols = obj.dim[0];
+          nImageLecteur = 0;
+          nImage = animation.datas.length-1;
+          dessineGrille();
+          // allume les pixels (de la dernière image de l'animation)
+          animation.datas[nImage].forEach((pixel, i) => {
+            pixels[pixel - 1].classList.add("allume");
+          });
+          // met à jour le compteur
+          compteur.innerHTML = nImage;
+          //console.log(obj.datas.length,animation.datas);
+        } catch (err) {
+          alert(`Il y a un problème dans le fichier, l'import n'a pas fonctionné.\nVérifiez votre fichier\n\n${err}`);
+        }
+      };
+      // abandonne le focus sur le bouton
+      // let elem = document.querySelector(':focus');
+      // console.log("focus:",elem);
+      // if(elem) {
+      //   console.log("quitte focus:",elem);
+      //   elem.blur();
+      // }
+
+      reader.onerror = function() {
+        console.log(reader.error);
+        alert("il y a un problème dans le fichier, l'import n'a pas fonctionné. Vérifiez votre fichier\n",reader.error);
+      };
+    }
+    // formatage du nom du fichier
+    Date.prototype.YYYYMMDDHHMMSS = function () {
+        var yyyy = this.getFullYear().toString();
+        var MM = pad(this.getMonth() + 1,2);
+        var dd = pad(this.getDate(), 2);
+        var hh = pad(this.getHours(), 2);
+        var mm = pad(this.getMinutes(), 2);
+        var ss = pad(this.getSeconds(), 2);
+        return yyyy + MM + dd+  hh + mm + ss;
+    };
+
+    function pad(number, length) {
+        var str = '' + number;
+        while (str.length < length) {
+            str = '0' + str;
+        }
+        return str;
+    }
+    /* equivalent clavier */
+    window.addEventListener("keyup", (event) => {
+        //console.log("reçu: ",event.code);
+      switch (event.code) {
+        case "Space":
+          record();
+          break;
+        case "ArrowLeft":
+          previous();
+          break;
+        case "ArrowRight":
+          next();
+          break;
+        case "Escape":
+          console.log("escape");
+          actions.style.opacity = 1;
+          enLecture = false;
+          lire();
+        default:
+          // remove "Digit" in the string and push in the array
+      }
+    });
+    window.addEventListener('hashchange', (e) => {
+      console.log( e.oldURL, e.newURL,/player/g.test(e.newURL) );
+      if (/player/g.test(e.newURL)) {
+        mode = "player";
+        size.style.display = "none";
+        actions.style.width = "220px";
+        actions.style.left= "calc(calc(50vw - 110px) - .5rem)";
+        document.querySelector('#download').style.display = "none";
+        document.querySelector('#add').style.display = "none";
+        document.querySelector('#clearNewFrame').style.display = "none";
+        document.querySelector('#clearNewFrameLabel').style.display = "none";
+        document.querySelector('#erase').style.display = "none";
+        document.documentElement.style.setProperty('--gap', 0);
+        document.documentElement.style.setProperty('--fond', "#000");
+        pixels.forEach((pixel, i) => {
+          pixel.style.height = `calc(${100 / rows}vh - ${((rows-1)/rows)*parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap'))}rem)`;
+        });
+        document.body.style.backgroundColor = "#333";
+        document.querySelector('#uploadPlayer').style.display = "block";
+      } else {
+        mode = "editeur";
+        size.style.display = "flex";
+        actions.style.opacity = 1;
+        actions.style.width = "360px";
+        actions.style.left= "calc(calc(50vw - 180px) - .5rem)";
+        document.querySelector('#download').style.display = "block";
+        document.querySelector('#add').style.display = "block";
+        document.querySelector('#clearNewFrame').style.display = "block";
+        document.querySelector('#clearNewFrameLabel').style.display = "block";
+        document.querySelector('#erase').style.display = "block";
+        document.documentElement.style.setProperty('--gap', "1rem");
+        document.documentElement.style.setProperty('--fond', "#333");
+        pixels.forEach((pixel, i) => {
+          pixel.style.height = `calc(${100 / rows}vh - ${((rows-1)/rows)*parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap'))}rem)`;
+        });
+        document.body.style.backgroundColor = "#000";
+        mode = "editeur";
+        document.querySelector('#uploadPlayer').style.display = "none";
+      }
+    }, false);
+  </script>
+</html>
