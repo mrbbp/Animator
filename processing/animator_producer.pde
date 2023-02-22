@@ -28,17 +28,13 @@ void fileSelected(File selection) {
     // fichier à charger
     json = loadJSONObject(selection.getAbsolutePath());
     
-    //speed = json.getInt("speed");
     JSONArray dim = json.getJSONArray("dim");
     nLargeur = dim.getInt(0);
     nHauteur = dim.getInt(1);
     largeur = width/nLargeur;
     hauteur = height/nHauteur;
     datas = json.getJSONArray("datas");
-    //println("datas:"+datas);
-    //frameRate(speed);
     flag = true;
-    //draw();
   }
 }
 void setup() {
@@ -52,15 +48,15 @@ void draw() {
   if (flag) {
     noStroke();
     background(255);
-    imgEncours = new JSONArray();    //blocs = new JSONArray();
-    int numBlocEncours = 0;    //println("numImg: "+numImg);
+    imgEncours = new JSONArray();
+    int numBlocEncours = 0;
     try {
       imgEncours = datas.getJSONArray(numImg);
       aImgEncours = imgEncours.getIntArray();
       int indexBlocEncours = 0;
-      for (int item:aImgEncours) {        //println(item);
+      for (int item:aImgEncours) {
         int y = int((item-1)/nLargeur);
-        int x = (item-1)%nLargeur;        //println(x,y);
+        int x = (item-1)%nLargeur;
         fill(0);
         rect(x*largeur, y*hauteur, largeur, hauteur);
       }
@@ -68,7 +64,7 @@ void draw() {
       numImg++;
       println("sauvegarde de l'image N°"+nf(numImg, 3));
     } 
-    catch (java.lang.RuntimeException e) {      //e.printStackTrace();
+    catch (java.lang.RuntimeException e) {
       exit();
       println("FINI");
     }
