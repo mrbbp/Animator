@@ -12,18 +12,23 @@ L'outil a été initialement conçu pour produire des animations sur écran 16:9
 Animator fonctionne en ligne (ou sur un serveur local) pour la partie web (la gestion des fichiers se fait en js avec l'objet Fetch()).
 
 ## Animator (html)
+
+La **version 11** (Janv. 24), est une version spécifique. Elle fait disparaitre l'interface de redimensionnement de la matrice (dimension fixe). Elle ajoute un bouton de connexion (via dongle usb-to-rs485 + api Web Serial) à l'afficheur XY5 7x7 d'Alfazeta (matrice flipdot). Une fois la connexion établie, le XY5 affiche l'animation en temps réel.  
+La connexion (api web serial) est compatible avec Google Chrome et son fork de chez Microsoft.
+
 ### Mode Éditeur
 ![mode éditeur](./img/outil_editeur_v7.png)
 #### Dans la partie supérieure :
 - importer un fichier d'anim (format json)
-- nombre de colonnes
-- nombre de lignes
+- nombre de colonnes __(absent sur la version 11)__
+- nombre de lignes __(absent sur la version 11)__
+- connecter l'afficheur XY5 7x7 d'Alfazeta __(uniquement sur la version 11)__
 
 #### Dans la partie inférieure : 
 - sauvegarder une animation
 - Numéro de l'image encours
 - image précédente
-- lire l'animation
+- lire l'animation (sur la version 11, lecture de l'animation sur l'afficheur XY5)
 - image suivante
 - insérer une image
 - une case à cocher pour effacer ou pas la grille en cours pour la nouvelle image
